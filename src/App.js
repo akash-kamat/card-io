@@ -1,5 +1,5 @@
 import React, {Component,useEffect,useState} from 'react';
-import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
+import { BrowserRouter as Router,Routes,Route,useNavigate } from 'react-router-dom';
 import CardList from './components/CardList'
 import Signup from './components/Signup';
 import Nav from './components/Nav'
@@ -10,20 +10,22 @@ import io from "socket.io-client";
 
 
 const socket = io("http://127.0.0.1:3002");
-// const username = localStorage.getItem("username")
-// const password = localStorage.getItem("password")
+
       
 function App() {
   // login(username,password)
+  const navigate = useNavigate()
   const [users,setUsers] = useState([]);
   const [usernames,setUsernames] = useState([]);
   const [user,setUser] = useState();
   const [loggedIn,setLoggedIn] = useState(false);
   const [clicks,setClicks] = useState();
   useEffect(()=>{
-    fetch("http://localhost:3002/users")
+      navigate('/loading')
+      fetch("http://localhost:3002/users")
           .then(response=>response.json())
           .then(result=>{
+            navigate('/')
             setUsers(result)
               // this.setState({users:result});
           })
@@ -33,6 +35,8 @@ function App() {
         setUsernames(result)
         // this.setState({usernames:result})
       })
+    
+    
       
       socket.on('new_user',(_user)=>{
         setUsers(oldArray => [...oldArray, _user]);
@@ -41,7 +45,8 @@ function App() {
       socket.on('userList',(l)=>{
         setUsers(l)
       })
-  },[])
+      const username = localStorage.getItem("username")
+      const password = localStorage.getItem("password")
 
   function login(u,p){
     if (u!=null) {
@@ -79,18 +84,18 @@ function App() {
     }
     
   }
+      login(username,password)
+
+  },[])
+
   function changeLogin(state){
     setLoggedIn(state)
   }
 
-  // updateUsers=(users,usernames)=>{
-  //   this.setState({users:users,usernames:usernames})
-  // }
-
 
   const nav = <Nav loggedIn={loggedIn} setLoggedIn={setLoggedIn} setUser={setUser} setClicks={setClicks}/>
   return(
-        <Router>
+        <div>
             {nav}
           <Routes>
             <Route exact path='/' element={<CardList users={users} user={user} loggedIn={loggedIn} setUsers={setUsers} setUser={setUser} clicks={clicks} setClicks={setClicks}/>}/>
@@ -99,7 +104,8 @@ function App() {
             <Route exact path='/profile' element={<Dashboard user={user} usernames={usernames} setUsers={setUsers} setUser={setUser} changeLogin={changeLogin}/>}/>
             <Route exact path='/loading' element={"loading"}/>
           </Routes>
-        </Router>
+          </div>
+        
       )
     
 }

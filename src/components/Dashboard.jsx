@@ -5,9 +5,11 @@ function Dashboard({ user, usernames, setUsers, setUser, changeLogin }) {
   const navigate=useNavigate()
   function updateBio() {
     const bio = document.getElementById("updatebioInput").value;
+    navigate('/loading')
     fetch(`http://localhost:3002/updatebio/${user.display_name}/${user.password}/${bio}`)
       .then(response => response.json())
       .then(result => {
+        navigate('/profile')
         setUser(prevState => ({
           ...prevState,
           "bio": bio
@@ -39,10 +41,11 @@ function Dashboard({ user, usernames, setUsers, setUser, changeLogin }) {
         body: raw,
         redirect: 'follow'
       };
-
+      navigate('/loading')
       fetch("http://localhost:3002/changeusername", requestOptions)
         .then(response => response.json())
         .then(result => {
+          navigate('/profile')
           setUser(prevState => ({
             ...prevState,
             "display_name": username
@@ -73,10 +76,12 @@ function Dashboard({ user, usernames, setUsers, setUser, changeLogin }) {
         body: raw,
         redirect: 'follow'
       };
-
+      navigate('/loading')
       fetch("http://localhost:3002/changepassword", requestOptions)
         .then(response => response.json())
         .then(result => {
+          localStorage.setItem("password",password)
+          navigate('/profile')
           setUser(prevState => ({
             ...prevState,
             "password": password
@@ -97,7 +102,7 @@ function Dashboard({ user, usernames, setUsers, setUser, changeLogin }) {
       body: formdata,
       redirect: 'follow'
     };
-
+    navigate('/loading')
     fetch("https://api.imgbb.com/1/upload", requestOptions)
       .then(response => response.json())
       .then(result => {
@@ -120,6 +125,7 @@ function Dashboard({ user, usernames, setUsers, setUser, changeLogin }) {
         fetch("http://localhost:3002/changedp", requestOptions)
           .then(response => response.text())
           .then(result => {
+            navigate('/profile')
             setUser(prevState => ({
               ...prevState,
               "img_url": img_url

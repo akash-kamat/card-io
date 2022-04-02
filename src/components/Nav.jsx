@@ -14,7 +14,7 @@ export default class Nav extends Component {
             <li>Profile</li>
           </Link>
           <Link to={"/"}>
-            <li onClick={()=>{setLoggedIn(false);setUser();setClicks()}}>Logout</li>
+            <li onClick={()=>{setLoggedIn(false);setUser();setClicks();localStorage.clear()}}>Logout</li>
           </Link>
         </div>
       )

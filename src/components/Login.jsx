@@ -21,7 +21,7 @@ function Login({changeLogin,setUser,setClicks}) {
             body: raw,
             redirect: 'follow'
         };
-
+        navigate('/loading')
         fetch("http://localhost:3002/login", requestOptions)
             .then(response => response.json())
             .then(result => {
