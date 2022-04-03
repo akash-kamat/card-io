@@ -1,11 +1,15 @@
-import React, { Component, useEffect, useState,use } from 'react'
+import React, { Component, useEffect, useState, } from 'react'
 import Card from './Card'
 import io from 'socket.io-client'
 
 const socket = io("http://127.0.0.1:3002");
 function CardList({ users, user, setUser, setUsers, loggedIn, clicks, setClicks }) {
-    
-    var userList = users.sort((a, b) => (a.clicks < b.clicks ? 1 : -1))
+    const [userList , setUserList] = useState([]);
+    useEffect(()=>{
+        const _userList = users.sort((a, b) => (a.clicks < b.clicks ? 1 : -1))
+        setUserList(_userList)
+        
+    })
 
     return (
         <div className="cardlist">

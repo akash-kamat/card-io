@@ -7,12 +7,12 @@ function Card({ name, display_name, img_url, bio, id, theme, clicks, rank, badge
 
     function counter() {
         setClick(click+1)
-        // setUser(prevState => ({
-        //     ...prevState,
-        //     "clicks": click+1
-        //   }));
+        setUser(prevState => ({
+            ...prevState,
+            "clicks": click+1
+          }));
         console.log("fool")
-        // socket.emit("click",user.display_name)
+        socket.emit("click",user.display_name)
     }
 
     if (login) {
