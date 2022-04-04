@@ -20,6 +20,7 @@ function App() {
   const [user,setUser] = useState();
   const [loggedIn,setLoggedIn] = useState(false);
   const [clicks,setClicks] = useState();
+
   useEffect(()=>{
       navigate('/loading')
       fetch("http://localhost:3002/users")
