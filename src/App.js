@@ -43,7 +43,13 @@ function App() {
         setUsernames(oldArray => [...oldArray, _user.display_name]);
       })
       socket.on('userList',(l)=>{
-        setUsers(l)
+        // setUsers(l)
+        fetch("http://localhost:3002/users")
+          .then(response=>response.json())
+          .then(result=>{
+            setUsers(result)
+              // this.setState({users:result});
+          })
       })
       const username = localStorage.getItem("username")
       const password = localStorage.getItem("password")
