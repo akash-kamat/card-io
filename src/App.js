@@ -27,13 +27,11 @@ function App() {
           .then(result=>{
             navigate('/')
             setUsers(result)
-              // this.setState({users:result});
           })
       fetch("http://localhost:3002/usernames")
       .then(response=>response.json())
       .then(result=>{
         setUsernames(result)
-        // this.setState({usernames:result})
       })
     
     
@@ -43,13 +41,7 @@ function App() {
         setUsernames(oldArray => [...oldArray, _user.display_name]);
       })
       socket.on('userList',(l)=>{
-        // setUsers(l)
-        fetch("http://localhost:3002/users")
-          .then(response=>response.json())
-          .then(result=>{
-            setUsers(result)
-              // this.setState({users:result});
-          })
+        setUsers(l)
       })
       const username = localStorage.getItem("username")
       const password = localStorage.getItem("password")
