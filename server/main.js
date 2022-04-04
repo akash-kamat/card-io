@@ -42,7 +42,7 @@ io.on('connection', (socket) => {
                 clicks: click_count + 1
             }
         })
-        const usrs = collection.find({});
+        const usrs = collection.find({}).sort({"clicks":-1});
         userlist = []
         await usrs.forEach(doc => userlist.push({
             "display_name": doc.display_name,
@@ -68,7 +68,7 @@ app.get('/', (req, res) => {
 app.get('/usernames', (req, res) => {
     async function run() {
         try {
-            const result = collection.find({});
+            const result = collection.find({}).sort({"clicks":-1});
             usernames = []
             await result.forEach(doc => usernames.push(doc.display_name));
             res.json(usernames)
@@ -83,7 +83,7 @@ app.get('/usernames', (req, res) => {
 app.get('/users', (req, res) => {
     async function run() {
         try {
-            const result = collection.find({});
+            const result = collection.find({}).sort({"clicks":-1});
             userlist = []
             await result.forEach(doc => userlist.push({
                 "display_name": doc.display_name,

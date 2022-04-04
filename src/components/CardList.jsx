@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState,use } from 'react'
+import React, { Component, useEffect, useState, } from 'react'
 import Card from './Card'
 import io from 'socket.io-client'
 
@@ -15,7 +15,7 @@ function CardList({ users, user, setUser, setUsers, loggedIn, clicks, setClicks 
     return (
         <div className="cardlist">
             {
-                userList.map((e, i) => {
+                users.map((e, i) => {
                     if (!loggedIn) {
                         return <Card key={i} name={e.name} display_name={e.display_name} img_url={e.img_url} bio={e.bio} id={e.id} clicks={e.clicks} rank={e.rank} badge={e.badge} />
 

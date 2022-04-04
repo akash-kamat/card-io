@@ -27,13 +27,11 @@ function App() {
           .then(result=>{
             navigate('/')
             setUsers(result)
-              // this.setState({users:result});
           })
       fetch("http://localhost:3002/usernames")
       .then(response=>response.json())
       .then(result=>{
         setUsernames(result)
-        // this.setState({usernames:result})
       })
     
     
