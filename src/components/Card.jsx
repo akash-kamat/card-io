@@ -18,7 +18,7 @@ function Card({ name, display_name, img_url, bio, id, theme, clicks, rank, badge
         //  const usr = 
         try{
 
-            document.querySelector(".loggedIn-card").scrollIntoView(true)
+            document.querySelector(".loggedIn-card").scrollIntoView({ behavior: 'smooth'})
         }
         catch(error){
             console.log(error)
