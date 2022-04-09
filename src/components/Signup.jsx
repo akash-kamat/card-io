@@ -6,7 +6,7 @@ function Signup({usernames}) {
   const navigate = useNavigate()
   
   function registerClick(usernames){
-    const fields = document.getElementsByTagName("input")
+    const fields = document.getElementsByClassName("signupInputs")
     const name = fields[0].value
     const display_name = fields[1].value
     const password = fields[4].value
@@ -98,12 +98,12 @@ function Signup({usernames}) {
   return (
       <div>
         <div className="box">
-          <input type="text" name="name" id="name" placeholder='Name' />
-          <input type="text" name="username" id="username" placeholder='username' />
-          <input type="text" name="bio" id="bio" placeholder='bio' />
-          <input type="file" name="dp" id="dp" onChange={loadImg} />
+          <input type="text" name="name" id="name" className='signupInputs' placeholder='Name' />
+          <input type="text" name="username" id="username" className='signupInputs' placeholder='username' />
+          <input type="text" name="bio" id="bio" className='signupInputs' placeholder='bio' />
+          <input type="file" name="dp" id="dp" className='signupInputs' onChange={loadImg} />
           <img hidden src="" id='pfp' alt="" />
-          <input type="password" name="password" id="password" placeholder='password' />
+          <input type="password" name="password" id="password" className='signupInputs' placeholder='password' />
           <button id='register' onClick={()=>registerClick(usernames)}>Register</button>
         </div>
       </div>

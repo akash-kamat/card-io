@@ -1,8 +1,8 @@
 import React from 'react'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function Dashboard({ user, usernames, setUsers, setUser, changeLogin }) {
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   function updateBio() {
     const bio = document.getElementById("updatebioInput").value;
     navigate('/loading')
@@ -80,7 +80,7 @@ function Dashboard({ user, usernames, setUsers, setUser, changeLogin }) {
       fetch("http://localhost:3002/changepassword", requestOptions)
         .then(response => response.json())
         .then(result => {
-          localStorage.setItem("password",password)
+          localStorage.setItem("password", password)
           navigate('/profile')
           setUser(prevState => ({
             ...prevState,
@@ -136,6 +136,22 @@ function Dashboard({ user, usernames, setUsers, setUser, changeLogin }) {
       })
       .catch(error => console.log('error', error));
   }
+
+  function changeTheme() {
+    const theme = document.getElementById("changeThemeInput").value;
+    navigate('/loading')
+    fetch(`http://localhost:3002/changetheme/${user.display_name}/${user.password}/${theme}`)
+      .then(response => response.json())
+      .then(result => {
+        navigate('/profile')
+        setUser(prevState => ({
+          ...prevState,
+          "theme": theme
+        }));
+      })
+
+  }
+
   function deleteUser() {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -155,6 +171,7 @@ function Dashboard({ user, usernames, setUsers, setUser, changeLogin }) {
     fetch("http://localhost:3002/delete", requestOptions)
       .then(response => response.text())
       .then(result => {
+        localStorage.clear()
         navigate('/')
         changeLogin(false)
         setUser()
@@ -184,6 +201,15 @@ function Dashboard({ user, usernames, setUsers, setUser, changeLogin }) {
         <div className="changeDp">
           <input type="file" name="pic" id="changedp" />
           <button onClick={changeDp}>upload</button>
+        </div>
+        <div className="changeTheme">
+          <select name="themes" id="changeThemeInput">
+            <option value="A">Red</option>
+            <option value="B">Blue</option>
+            <option value="C">Green</option>
+            <option value="D">Black</option>
+          </select>
+          <button onClick={changeTheme}>change</button>
         </div>
       </div>
       <div className="delete">

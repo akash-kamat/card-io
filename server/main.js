@@ -191,6 +191,33 @@ app.get('/updatebio/:username/:password/:newbio', (req, res) => {
     run().catch(console.dir)
 })
 
+app.get('/changetheme/:username/:password/:theme', (req, res) => {
+    async function run() {
+        try {
+            const result = await collection.findOne({
+                "display_name": req.params.username,
+                "password": req.params.password
+            })
+            if (result == null) {
+                res.json("invalid credentials")
+            } else {
+                const query = {
+                    "display_name": req.params.username
+                }
+                const update = await collection.updateOne(query, {
+                    $set: {
+                        theme: req.params.theme
+                    }
+                })
+                res.json(`Theme updated to: ${req.params.theme}`)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    run().catch(console.dir)
+})
+
 app.post('/delete', (req, res) => {
     async function run() {
         try {
