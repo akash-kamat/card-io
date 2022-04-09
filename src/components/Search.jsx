@@ -1,12 +1,12 @@
 import React from 'react'
 
-function Search() {
+function Search({onSearch}) {
    
     return (
         <div className="inputdiv">
-            <input id="searchbox" type="search" placeholder="Search" />
+            <input id="searchbox" type="search" placeholder="Search" onChange={(e)=>onSearch(e)} />
         </div>
     )
 }
 
-export default Search
+export default Search;

@@ -21,6 +21,7 @@ function App() {
   const [user,setUser] = useState();
   const [loggedIn,setLoggedIn] = useState(false);
   const [clicks,setClicks] = useState();
+  const [searchValue,setSearchValue] = useState('');
 
   useEffect(()=>{
       navigate('/loading')
@@ -97,14 +98,31 @@ function App() {
     setLoggedIn(state)
   }
 
-  
+  const filteredUsers = users.filter(
+    person => {
+      return (
+        person
+        .name
+        .toLowerCase()
+        .includes(searchValue.toLowerCase()) ||
+        person
+        .display_name
+        .toLowerCase()
+        .includes(searchValue.toLowerCase())
+      );
+    }
+  );
+
+  function onSearch(e){
+    setSearchValue(e.target.value)
+  }
   const nav = <Nav loggedIn={loggedIn} setLoggedIn={setLoggedIn} setUser={setUser} setClicks={setClicks}/>
   return(
         <div>
             {nav}
-            <Search/>
+            <Search onSearch={onSearch}/>
           <Routes>
-            <Route exact path='/' element={<CardList users={users} user={user} loggedIn={loggedIn} setUsers={setUsers} setUser={setUser} clicks={clicks} setClicks={setClicks}/>}/>
+            <Route exact path='/' element={<CardList users={filteredUsers} user={user} loggedIn={loggedIn} setUsers={setUsers} setUser={setUser} clicks={clicks} setClicks={setClicks}/>}/>
             <Route path='/login' element={<Login setUser={setUser} loggedIn={loggedIn} changeLogin={changeLogin} setClicks={setClicks}/>}/>
             <Route exact path='/signup' element={<Signup usernames={usernames} />}/>
             <Route exact path='/profile' element={<Dashboard user={user} usernames={usernames} setUsers={setUsers} setUser={setUser} changeLogin={changeLogin}/>}/>
