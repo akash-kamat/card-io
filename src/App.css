@@ -21,6 +21,13 @@
 .loggedIn-card{
   background-color: aquamarine;
 }
+.navdiv{
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -o-user-select: none;
+}
 
 .cardlist {
   width: 80%;

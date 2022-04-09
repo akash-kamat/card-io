@@ -6,7 +6,7 @@ export default class Nav extends Component {
     const {loggedIn,setLoggedIn,setUser,setClicks} = this.props;
     if (loggedIn){
       return (
-        <div>
+        <div className='navdiv'>
           <Link to={"/"}>
             <li>Home</li>
           </Link>

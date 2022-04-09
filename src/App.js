@@ -5,6 +5,7 @@ import Signup from './components/Signup';
 import Nav from './components/Nav'
 import Login from './components/Login'
 import Dashboard from './components/Dashboard';
+import Search from './components/Search';
 import './App.css';
 import io from "socket.io-client";
 
@@ -84,6 +85,11 @@ function App() {
     
   }
       login(username,password)
+      window.addEventListener('dblclick',function(){
+        if (loggedIn) {
+          document.querySelector(".loggedIn-card").scrollIntoView()
+        }
+      })
 
   },[])
 
@@ -91,11 +97,12 @@ function App() {
     setLoggedIn(state)
   }
 
-
+  
   const nav = <Nav loggedIn={loggedIn} setLoggedIn={setLoggedIn} setUser={setUser} setClicks={setClicks}/>
   return(
         <div>
             {nav}
+            <Search/>
           <Routes>
             <Route exact path='/' element={<CardList users={users} user={user} loggedIn={loggedIn} setUsers={setUsers} setUser={setUser} clicks={clicks} setClicks={setClicks}/>}/>
             <Route path='/login' element={<Login setUser={setUser} loggedIn={loggedIn} changeLogin={changeLogin} setClicks={setClicks}/>}/>

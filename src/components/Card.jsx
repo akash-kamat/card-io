@@ -16,7 +16,13 @@ function Card({ name, display_name, img_url, bio, id, theme, clicks, rank, badge
     }
     useEffect(async()=>{
         //  const usr = 
-        document.querySelector(".loggedIn-card").scrollIntoView(true)
+        try{
+
+            document.querySelector(".loggedIn-card").scrollIntoView(true)
+        }
+        catch(error){
+            console.log(error)
+        }
         
     })
 
