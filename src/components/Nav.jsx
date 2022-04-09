@@ -16,6 +16,7 @@ export default class Nav extends Component {
           <Link to={"/"}>
             <li onClick={()=>{setLoggedIn(false);setUser();setClicks();localStorage.clear()}}>Logout</li>
           </Link>
+          <button onClick={()=>document.querySelector(".loggedIn-card").scrollIntoView({ behavior: 'smooth'})}>Goto My-Card</button>
         </div>
       )
     }
