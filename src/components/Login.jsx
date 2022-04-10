@@ -1,9 +1,16 @@
-import React, { Component,useRef } from 'react'
+import React, { Component,useEffect } from 'react'
 import {Navigate, useNavigate} from 'react-router-dom'
 
 
 function Login({changeLogin,setUser,setClicks}) {
     const navigate = useNavigate()
+    useEffect(()=>{
+        document.querySelector('#password').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                document.querySelector('#loginBtn').click();
+            }
+        });
+    })
     function login(){
         const display_name = document.getElementById('username').value
         const password = document.getElementById('password').value
@@ -45,7 +52,7 @@ function Login({changeLogin,setUser,setClicks}) {
             <div>
                 <input type="text" name="username" id="username" placeholder='username'/>
                 <input type="password" name="password" id="password" placeholder='password' />
-                <button onClick={login}>Login</button>
+                <button id='loginBtn' onClick={login}>Login</button>
             </div>
         )
 

@@ -1,10 +1,16 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import {useNavigate} from 'react-router-dom'
 
 function Signup({usernames}) {
 
   const navigate = useNavigate()
-  
+  useEffect(()=>{
+    document.querySelector('#password').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+            document.querySelector('#register').click();
+        }
+    });
+})
   function registerClick(usernames){
     const fields = document.getElementsByClassName("signupInputs")
     const name = fields[0].value
