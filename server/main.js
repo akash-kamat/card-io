@@ -4,12 +4,12 @@ const {
 } = require("mongodb");
 const cors = require('cors')
 const bodyParser = require('body-parser');
-
+require('dotenv').config()
 
 
 
 const app = express()
-const connectionString = "mongodb+srv://akashkamat:akashkamat10@mytestdb.ducrb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+const connectionString = process.env.CS
 const client = new MongoClient(connectionString);
 client.connect();
 const database = client.db("card-io");
@@ -25,7 +25,50 @@ const io = require('socket.io')(http, {
 app.use(bodyParser.json())
 app.use(cors())
 
-
+function checkRank(clicks){
+    if(clicks<=10){
+        return "wood"
+    }
+    else if (clicks > 10 && clicks<=50) {
+        return "iron 1"
+    }
+    else if(clicks > 50 && clicks<=100){
+        return "iron 2"
+    }
+    else if(clicks > 100 && clicks<=175){
+        return "iron 3"
+    }
+    else if(clicks > 175 && clicks<=250){
+        return "bronze 1"
+    }
+    else if(clicks > 250 && clicks<=325){
+        return "bronze 2"
+    }
+    else if(clicks > 325 && clicks<=425){
+        return "bronze 3"
+    }
+    else if(clicks > 425 && clicks<=625){
+        return "silver 1"
+    }
+    else if(clicks > 625 && clicks<=702){
+        return "silver 2"
+    }
+    else if(clicks > 702 && clicks<=788){
+        return "silver 3"
+    }
+    else if(clicks > 788 && clicks<=1122){
+        return "gold 1"
+    }
+    else if(clicks > 1122 && clicks<=1180){
+        return "gold 2"
+    }
+    else if(clicks > 1180 && clicks<=1270){
+        return "gold 3"
+    }
+    else if(clicks > 1270 && clicks<=1670){
+        return "Platinum 1"
+    }
+}
 
 io.on('connection', (socket) => {
     console.log("client connected")
@@ -37,9 +80,12 @@ io.on('connection', (socket) => {
         const query = {
             "display_name": display_name
         }
+        console.log(checkRank(click_count+1))
         const update = await collection.updateOne(query, {
             $set: {
-                clicks: click_count + 1
+                "clicks": click_count + 1,
+                "badge": checkRank(click_count+1)
+                
             }
         })
         const usrs = collection.find({}).sort({"clicks":-1});
@@ -127,7 +173,7 @@ app.post('/register', (req, res) => {
                 "theme": "A",
                 "clicks": 0,
                 "rank": 0,
-                "badge": "iron",
+                "badge": "wood",
                 "joinedOn": new Date
             }
             usr = await collection.insertOne(_user)
@@ -304,6 +350,33 @@ app.post('/changedp', (req, res) => {
                     }
                 })
                 res.json(`Profile picture Updated`)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    run().catch(console.dir)
+})
+
+app.post('/setBadge', (req, res) => {
+    async function run() {
+        try {
+            const result = await collection.findOne({
+                "display_name": req.body.display_name,
+                "password": req.body.password
+            })
+            if (result == null) {
+                res.json("invalid credentials")
+            } else {
+                const query = {
+                    "display_name": req.body.display_name
+                }
+                const update = await collection.updateOne(query, {
+                    $set: {
+                        badge: req.body.badge
+                    }
+                })
+                res.json(`Badge Updated`)
             }
         } catch (error) {
             console.log(error)

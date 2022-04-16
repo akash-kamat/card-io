@@ -12,7 +12,7 @@ function CardList({ users, user, setUser, setUsers, loggedIn, clicks, setClicks 
             window.onscroll = function () { scrollFunction() };
 
             function scrollFunction() {
-                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
                     mybutton.style.display = "block";
                     mybutton2.style.display = "block";
                 } else {
@@ -26,7 +26,7 @@ function CardList({ users, user, setUser, setUsers, loggedIn, clicks, setClicks 
             window.onscroll = function () { scrollFunction() };
 
             function scrollFunction() {
-                if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
                     mybutton.style.display = "block";
                 } else {
                     mybutton.style.display = "none";

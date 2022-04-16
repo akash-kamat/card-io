@@ -1,17 +1,17 @@
-import React,{useEffect} from 'react'
-import {useNavigate} from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-function Signup({usernames}) {
+function Signup({ usernames }) {
 
   const navigate = useNavigate()
-  useEffect(()=>{
+  useEffect(() => {
     document.querySelector('#password').addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            document.querySelector('#register').click();
-        }
+      if (e.key === 'Enter') {
+        document.querySelector('#register').click();
+      }
     });
-})
-  function registerClick(usernames){
+  })
+  function registerClick(usernames) {
     const fields = document.getElementsByClassName("signupInputs")
     const name = fields[0].value
     const display_name = fields[1].value
@@ -23,96 +23,96 @@ function Signup({usernames}) {
       alert("Username already exists!")
     }
     else {
-      if (fields[3].files[0]!=undefined) {
+      if (fields[3].files[0] != undefined) {
         var formdata = new FormData();
-      formdata.append("key", "7e60570fc00f7495c89ca030e9cf8dd6");
-      formdata.append("image", fields[3].files[0], display_name);
+        formdata.append("key", "7e60570fc00f7495c89ca030e9cf8dd6");
+        formdata.append("image", fields[3].files[0], display_name);
 
-      var requestOptions = {
-        method: 'POST',
-        body: formdata,
-        redirect: 'follow'
-      };
+        var requestOptions = {
+          method: 'POST',
+          body: formdata,
+          redirect: 'follow'
+        };
 
-      navigate('/loading')
-      fetch("https://api.imgbb.com/1/upload", requestOptions)
-        .then(response => response.json())
-        .then(result => {
-          img_url = result.data.display_url;
-          var myHeaders = new Headers();
-          myHeaders.append("Content-Type", "application/json");
+        navigate('/loading')
+        fetch("https://api.imgbb.com/1/upload", requestOptions)
+          .then(response => response.json())
+          .then(result => {
+            img_url = result.data.display_url;
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
 
-          var raw = JSON.stringify({
-            "name": name,
-            "display_name": display_name,
-            "password": password,
-            "bio": bio,
-            "img_url": img_url
-          });
+            var raw = JSON.stringify({
+              "name": name,
+              "display_name": display_name,
+              "password": password,
+              "bio": bio,
+              "img_url": img_url
+            });
 
-          var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-          };
-          fetch("http://localhost:3002/register", requestOptions)
-            .then(response => response.text())
-            .then(result => navigate('/'))
-            .catch(error => console.log('error', error));
+            var requestOptions = {
+              method: 'POST',
+              headers: myHeaders,
+              body: raw,
+              redirect: 'follow'
+            };
+            fetch("http://localhost:3002/register", requestOptions)
+              .then(response => response.text())
+              .then(result => navigate('/'))
+              .catch(error => console.log('error', error));
 
-        })
-        .catch(error => console.log('error', error));
+          })
+          .catch(error => console.log('error', error));
       }
-      else{
-         img_url = `https://ui-avatars.com/api/?name=${name}&size=300`;
-          var myHeaders = new Headers();
-          myHeaders.append("Content-Type", "application/json");
+      else {
+        img_url = `https://ui-avatars.com/api/?name=${name}&size=300`;
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
 
-          var raw = JSON.stringify({
-            "name": name,
-            "display_name": display_name,
-            "password": password,
-            "bio": bio,
-            "img_url": img_url
-          });
+        var raw = JSON.stringify({
+          "name": name,
+          "display_name": display_name,
+          "password": password,
+          "bio": bio,
+          "img_url": img_url
+        });
 
-          var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: raw,
-            redirect: 'follow'
-          };
-          navigate('/loading')
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+        };
+        navigate('/loading')
         fetch("http://localhost:3002/register", requestOptions)
-            .then(response => response.text())
-            .then(result => navigate('/'))
-            .catch(error => console.log('error', error));
+          .then(response => response.text())
+          .then(result => navigate('/'))
+          .catch(error => console.log('error', error));
       }
-      
+
 
     }
 
 
 
   }
-  function loadImg (event) {
+  function loadImg(event) {
     var image = document.getElementById('pfp');
     image.src = URL.createObjectURL(event.target.files[0]);
     image.removeAttribute("hidden")
   };
   return (
-      <div>
-        <div className="box">
-          <input type="text" name="name" id="name" className='signupInputs' placeholder='Name' />
-          <input type="text" name="username" id="username" className='signupInputs' placeholder='username' />
-          <input type="text" name="bio" id="bio" className='signupInputs' placeholder='bio' />
-          <input type="file" name="dp" id="dp" className='signupInputs' onChange={loadImg} />
-          <img hidden src="" id='pfp' alt="" />
-          <input type="password" name="password" id="password" className='signupInputs' placeholder='password' />
-          <button id='register' onClick={()=>registerClick(usernames)}>Register</button>
-        </div>
+    <div>
+      <div className="box">
+        <input type="text" name="name" id="name" className='signupInputs' placeholder='Name' />
+        <input type="text" name="username" id="username" className='signupInputs' placeholder='username' />
+        <input type="text" name="bio" id="bio" className='signupInputs' placeholder='bio' />
+        <input type="file" name="dp" id="dp" className='signupInputs' onChange={loadImg} />
+        <img hidden src="" id='pfp' alt="" />
+        <input type="password" name="password" id="password" className='signupInputs' placeholder='password' />
+        <button id='register' onClick={() => registerClick(usernames)}>Register</button>
       </div>
+    </div>
   )
 }
 

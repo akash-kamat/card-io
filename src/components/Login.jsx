@@ -43,6 +43,7 @@ function Login({changeLogin,setUser,setClicks}) {
                 }
                 else{
                     alert("invalid creds")
+                    navigate('/login')
                 }
             })
             .catch(error => console.log('error', error));
