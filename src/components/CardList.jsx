@@ -48,15 +48,15 @@ function CardList({ users, user, setUser, setUsers, loggedIn, clicks, setClicks 
                     {
                         users.map((e, i) => {
                             if (!loggedIn) {
-                                return <Card key={i} name={e.name} display_name={e.display_name} img_url={e.img_url} bio={e.bio} id={e.id} clicks={e.clicks} rank={e.rank} badge={e.badge} />
+                                return <Card key={i} name={e.name} display_name={e.display_name} img_url={e.img_url} bio={e.bio} id={e.id} clicks={e.clicks} rank={i} badge={e.badge} />
 
                             }
                             else {
                                 if (e.display_name != user.display_name) {
-                                    return <Card key={i} name={e.name} display_name={e.display_name} img_url={e.img_url} bio={e.bio} id={e.id} clicks={e.clicks} rank={e.rank} badge={e.badge} />
+                                    return <Card key={i} name={e.name} display_name={e.display_name} img_url={e.img_url} bio={e.bio} id={e.id} clicks={e.clicks} rank={i} badge={e.badge} />
                                 }
                                 else {
-                                    return <Card user={user} users={users} setUser={setUser} setUsers={setUsers} click={clicks} setClick={setClicks} key={i} login={true} name={e.name} display_name={e.display_name} img_url={e.img_url} bio={e.bio} id={e.id} clicks={e.clicks} rank={e.rank} badge={e.badge} />
+                                    return <Card user={user} users={users} setUser={setUser} setUsers={setUsers} click={clicks} setClick={setClicks} key={i} login={true} name={e.name} display_name={e.display_name} img_url={e.img_url} bio={e.bio} id={e.id} clicks={e.clicks} rank={i} badge={e.badge} />
 
                                 }
                             }

@@ -29,27 +29,24 @@ function Card({ name, display_name, img_url, bio, id, theme, clicks, rank, badge
     if (login) {
         return (
             <div className="card loggedIn-card" id={id} onClick={counter}>
-                <img src={img_url} alt="" />
+                <img className='profile-picture' src={img_url} alt="" />
                 <h1 className='name'>{name}</h1>
                 <h2 className='displayName'>{display_name}</h2>
                 <p>{bio}</p>
                 <h3>{clicks}</h3>
-                <h3>{rank}</h3>
-                <h3>{badge}</h3>
+                <img title={badge} className='badge' src={require(`./badges/${badge}.png`)} alt="" />
             </div>
         )
     }
     else {
         return (
             <div className="card" id={id}>
-                <img src={img_url} alt="" />
+                <img className='profile-picture' src={img_url} alt="" />
                 <h1 className='name'>{name}</h1>
                 <h2 className='displayName'>{display_name}</h2>
                 <p>{bio}</p>
                 <h3>{clicks}</h3>
-                <h3>{rank}</h3>
-                <h3>{badge}</h3>
-
+                <img title={badge} className='badge' src={require(`./badges/${badge}.png`)} alt="" />
             </div>
         )
     }

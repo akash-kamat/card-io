@@ -21,6 +21,10 @@
 .loggedIn-card{
   background-color: aquamarine;
 }
+.top-card{
+  background-color: gold;
+}
+
 .navdiv{
   -moz-user-select: none;
   -webkit-user-select: none;
@@ -40,10 +44,13 @@
   justify-content: center;
 }
 
-img {
+.profile-picture {
   object-fit: cover;
   border-radius: 50%;
   width: 150px;
   height: 150px;
   border: 5px solid white;
+}
+.badge{
+  width: 70px;
 }

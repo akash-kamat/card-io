@@ -14,7 +14,7 @@ const socket = io("http://127.0.0.1:3002");
 
       
 function App() {
-  // login(username,password)
+
   const navigate = useNavigate()
   const [users,setUsers] = useState([]);
   const [usernames,setUsernames] = useState([]);

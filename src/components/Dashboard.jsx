@@ -184,6 +184,8 @@ function Dashboard({ user, usernames, setUsers, setUser, changeLogin }) {
         {user.display_name}
         <br />
         {user.bio}
+        <br />
+        <img src={user.img_url} alt="dp" />
       </div>
       <div className="form">
         <div className="changeBio">

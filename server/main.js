@@ -26,47 +26,29 @@ app.use(bodyParser.json())
 app.use(cors())
 
 function checkRank(clicks){
-    if(clicks<=10){
-        return "wood"
+    if(clicks<=100){
+        return "1freshGreen"
     }
-    else if (clicks > 10 && clicks<=50) {
-        return "iron 1"
+    else if (clicks > 100 && clicks<=600) {
+        return "2steel"
     }
-    else if(clicks > 50 && clicks<=100){
-        return "iron 2"
+    else if(clicks > 600 && clicks<=1500){
+        return "3buckyBronze"
     }
-    else if(clicks > 100 && clicks<=175){
-        return "iron 3"
+    else if(clicks > 1500 && clicks<=2500){
+        return "4redStone"
     }
-    else if(clicks > 175 && clicks<=250){
-        return "bronze 1"
+    else if(clicks > 2500 && clicks<=3900){
+        return "5silver"
     }
-    else if(clicks > 250 && clicks<=325){
-        return "bronze 2"
+    else if(clicks > 3900 && clicks<=5000){
+        return "6gold"
     }
-    else if(clicks > 325 && clicks<=425){
-        return "bronze 3"
+    else if(clicks > 5000 && clicks<=6300){
+        return "7platinum"
     }
-    else if(clicks > 425 && clicks<=625){
-        return "silver 1"
-    }
-    else if(clicks > 625 && clicks<=702){
-        return "silver 2"
-    }
-    else if(clicks > 702 && clicks<=788){
-        return "silver 3"
-    }
-    else if(clicks > 788 && clicks<=1122){
-        return "gold 1"
-    }
-    else if(clicks > 1122 && clicks<=1180){
-        return "gold 2"
-    }
-    else if(clicks > 1180 && clicks<=1270){
-        return "gold 3"
-    }
-    else if(clicks > 1270 && clicks<=1670){
-        return "Platinum 1"
+    else if(clicks > 6300 && clicks<=8000){
+        return "8diamond"
     }
 }
 
@@ -173,7 +155,7 @@ app.post('/register', (req, res) => {
                 "theme": "A",
                 "clicks": 0,
                 "rank": 0,
-                "badge": "wood",
+                "badge": "1freshGreen",
                 "joinedOn": new Date
             }
             usr = await collection.insertOne(_user)
